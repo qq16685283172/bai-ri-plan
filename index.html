@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百日炼兵计划 - 弘历软件官方服务频道</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Hero区域 */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(18px, 4vw, 28px);
+            color: #b8c5d6;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffd700;
+            padding: 16px 48px;
+            border: 2px solid #ffd700;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,215,0,0.1);
+        }
+
+        /* 滚动指示器 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes scroll {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 30px; }
+        }
+
+        /* 通用容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(28px, 5vw, 42px);
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .section-title p {
+            color: #8892a0;
+            font-size: 18px;
+        }
+
+        .highlight {
+            color: #ffd700;
+        }
+
+        /* 项目介绍 */
+        .intro {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 100%);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .intro-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .intro-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+        }
+
+        .intro-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .intro-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #ffd700;
+        }
+
+        .intro-card p {
+            color: #b8c5d6;
+            font-size: 15px;
+        }
+
+        /* 福利专区 */
+        .rewards {
+            background: #0f0f1f;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .reward-item {
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.05));
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reward-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,215,0,0.2), transparent);
+        }
+
+        .reward-tag {
+            display: inline-block;
+            background: #ffd700;
+            color: #000;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .reward-item h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .reward-item p {
+            color: #8892a0;
+            font-size: 14px;
+        }
+
+        /* 里程碑时间轴 */
+        .milestone {
+            background: linear-gradient(180deg, #0f0f1f 0%, #1a1a2e 100%);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #ffd700, #ff8c00);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+                padding-left: 60px;
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border-radius: 50%;
+            border: 4px solid #0a0a1a;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                width: 100%;
+            }
+        }
+
+        .timeline-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content h4 {
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: #b8c5d6;
+            font-size: 14px;
+        }
+
+        /* 栏目介绍 */
+        .programs {
+            background: #0a0a1a;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .program-card {
+            background: linear-gradient(135deg, rgba(26,26,46,0.8), rgba(15,52,96,0.5));
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffd700, #ff6b35);
+        }
+
+        .program-card.basic::before {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+        }
+
+        .program-card h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .program-card .tag {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .program-card .tag.blue {
+            background: rgba(79,172,254,0.2);
+            color: #4facfe;
+        }
+
+        .program-card .tag.gold {
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
+        }
+
+        .program-card p {
+            color: #b8c5d6;
+            margin-bottom: 16px;
+        }
+
+        .program-card ul {
+            list-style: none;
+        }
+
+        .program-card li {
+            color: #fff;
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .program-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4facfe;
+        }
+
+        .program-card.gold li::before {
+            color: #ffd700;
+        }
+
+        /* CTA区域 */
+        .cta-section {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(28px, 5vw, 40px);
+            color: #000;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: rgba(0,0,0,0.7);
+            margin-bottom: 32px;
+        }
+
+        .cta-section .btn-dark {
+            background: #000;
+            color: #ffd700;
+            padding: 18px 60px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-section .btn-dark:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* 页脚 */
+        footer {
+            background: #050510;
+            padding: 40px 20px;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 8px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge">限时免费加入</span>
+            <h1>百日炼兵计划</h1>
+            <p class="subtitle">100天成长蜕变，从入门到精通<br>弘历软件官方服务频道会员专属成长计划</p>
+            <div class="hero-cta">
+                <a href="#" class="btn-primary">立即免费加入</a>
+                <a href="#intro" class="btn-secondary">了解更多</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- 项目介绍 -->
+    <section id="intro" class="intro">
+        <div class="container">
+            <div class="section-title">
+                <h2>什么是<span class="highlight">百日炼兵计划</span>？</h2>
+                <p>专为弘历软件会员打造的长期成长陪伴计划</p>
+            </div>
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <div class="icon">📚</div>
+                    <h3>持续学习</h3>
+                    <p>百日不间断的课程学习，从《易学久会》软件实操到《财经壹眼》实战进阶，循序渐进提升技能。</p>
+                </div>
+                <div class="intro-card">
+                    <div class="icon">🎯</div>
+                    <h3>阶段成长</h3>
+                    <p>清晰的里程碑式成长路径，每完成一个阶段即可解锁相应权益，让学习有目标、有动力。</p>
+                </div>
+                <div class="intro-card">
+                    <div class="icon">🎁</div>
+                    <h3>专属权益</h3>
+                    <p>完成学习任务即可免费领取《逃顶实战手册》《领航进阶宝典》等珍贵资料，还有龙虾系统体验权。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 福利专区 -->
+    <section class="rewards">
+        <div class="container">
+            <div class="section-title">
+                <h2>免费领取<span class="highlight">学习福利</span></h2>
+                <p>加入计划，完成任务即得</p>
+            </div>
+            <div class="rewards-grid">
+                <div class="reward-item">
+                    <span class="reward-tag">新手礼包</span>
+                    <h3>《逃顶实战手册》</h3>
+                    <p>首次加入即可领取，助你掌握逃顶技巧</p>
+                </div>
+                <div class="reward-item">
+                    <span class="reward-tag">进阶礼包</span>
+                    <h3>《领航进阶宝典》</h3>
+                    <p>连续5节课程送出领航卡，解锁进阶学习资料</p>
+                </div>
+                <div class="reward-item">
+                    <span class="reward-tag">高级礼包</span>
+                    <h3>龙虾决策系统3.0</h3>
+                    <p>连续两周学习《易学久会》，系统使用权限</p>
+                </div>
+                <div class="reward-item">
+                    <span class="reward-tag">终极礼包</span>
+                    <h3>顶级游资涨停宝典</h3>
+                    <p>完成三日连续打卡 + 特训班入场券</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成长里程碑 -->
+    <section class="milestone">
+        <div class="container">
+            <div class="section-title">
+                <h2>百日<span class="highlight">成长路径</span></h2>
+                <p>每一步都有惊喜，每一步都在成长</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-number">1</span>
+                        <h4>新手见面礼</h4>
+                        <p>首次参与百日炼兵计划，即可获得《逃顶实战手册》电子书</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-number">2</span>
+                        <h4>学习小能手</h4>
+                        <p>连续5节《易学久会》送出领航卡，获得《领航进阶宝典》</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-number">3</span>
+                        <h4>粉丝团进阶</h4>
+                        <p>成为5级粉丝团成员，获得《财经壹眼》3日体验课</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-number">4</span>
+                        <h4>持续精进</h4>
+                        <p>连续收看两周《易学久会》，解锁龙虾决策系统3.0使用权</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-number">5</span>
+                        <h4>炼兵大成</h4>
+                        <p>完成三日连续打卡，获得特训班入场券 + 顶级游资涨停宝典</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 栏目介绍 -->
+    <section class="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>两大<span class="highlight">核心栏目</span></h2>
+                <p>从基础到进阶，全方位提升</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card basic">
+                    <h3>易学久会</h3>
+                    <span class="tag blue">基础训练场</span>
+                    <p>软件实操基础课程，指标学习与实战应用</p>
+                    <ul>
+                        <li>指标学习与应用</li>
+                        <li>软件实操训练</li>
+                        <li>基础技能培养</li>
+                        <li>面向全体会员</li>
+                    </ul>
+                </div>
+                <div class="program-card gold">
+                    <h3>财经壹眼</h3>
+                    <span class="tag gold">进阶成长营</span>
+                    <p>高级实战课程，市场分析与案例拆解</p>
+                    <ul>
+                        <li>市场深度分析</li>
+                        <li>实战案例拆解</li>
+                        <li>盘中干货分享</li>
+                        <li>终身领航员专属</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA区域 -->
+    <section class="cta-section">
+        <h2>开启你的百日成长之旅</h2>
+        <p>加入弘历软件服务频道，与万名投资者一起成长</p>
+        <button class="btn-dark">立即免费加入</button>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>弘历软件官方服务频道</p>
+        <p>久学精进 · 久学贯通 · 久学破壁 · 久学致用 · 久学薄发</p>
+    </footer>
+</body>
+</html>
