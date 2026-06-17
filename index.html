@@ -862,47 +862,36 @@
             display: block;
         }
 
-        .form-tips {
-            background: rgba(255,215,0,0.1);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
+        .questionnaire-modal {
+            max-width: 520px;
+            padding: 0;
+            overflow: hidden;
         }
 
-        .form-tips h4 {
-            color: #ffd700;
-            font-size: 14px;
-            margin-bottom: 8px;
+        .questionnaire-modal .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background: rgba(0,0,0,0.5);
         }
 
-        .form-tips p {
-            color: #b8c5d6;
-            font-size: 13px;
-            line-height: 1.8;
+        .questionnaire-modal iframe {
+            display: block;
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+        @media (max-width: 768px) {
+            .questionnaire-modal {
+                max-width: 100%;
+                margin: 10px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255,215,0,0.4);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            .questionnaire-modal iframe {
+                height: 70vh;
+                min-height: 500px;
+            }
         }
 
         /* 成功提示 */
@@ -1182,49 +1171,16 @@
 
     <!-- 报名模态框 -->
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="formModal">
+        <div class="modal questionnaire-modal" id="formModal">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h3>立即报名加入</h3>
-            <p class="modal-subtitle">填写您的精网号，完成报名</p>
-
-            <div class="form-tips">
-                <h4>💡 如何查找精网号？</h4>
-                <p>精网号是您在弘历软件的唯一标识，通常是以 <strong>5</strong> 开头的 8 位数字。<br>
-                登录弘历软件客户端，在个人中心即可查看您的精网号。</p>
-            </div>
-
-            <form id="signupForm" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label>精网号 <span>*</span></label>
-                    <input 
-                        type="text" 
-                        class="form-input" 
-                        id="jingwanghao"
-                        placeholder="请输入8位精网号，如 51234567"
-                        maxlength="8"
-                        oninput="validateJingwanghao(this)"
-                    >
-                    <p class="form-hint">以5开头的8位数字</p>
-                    <p class="form-error" id="jingwangError">请输入正确的精网号（5开头的8位数字）</p>
-                </div>
-
-                <button type="submit" class="btn-submit" id="submitBtn">
-                    确认报名
-                </button>
-            </form>
-        </div>
-
-        <!-- 成功提示 -->
-        <div class="modal success-modal" id="successModal" style="display: none;">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div class="success-icon">✓</div>
-            <h3>报名成功！</h3>
-            <p>恭喜您已成功加入百日炼兵计划</p>
-            <div class="jingwang" id="displayJingwanghao"></div>
-            <p>工作人员将在 24 小时内与您联系</p>
-            <button class="btn-submit" onclick="closeModal()" style="margin-top: 20px;">
-                我知道了
-            </button>
+            <iframe 
+                id='idy_frame' 
+                src="https://wj.qq.com/s2/27063964/77a8/" 
+                frameborder="0" 
+                style='width:100%;height:650px;border:none;' 
+                allowfullscreen 
+                sandbox="allow-same-origin allow-scripts allow-modals allow-downloads allow-forms allow-popups"
+            ></iframe>
         </div>
     </div>
 
@@ -1319,14 +1275,6 @@
         function closeModal() {
             document.getElementById('modalOverlay').classList.remove('active');
             document.body.style.overflow = '';
-            // 重置表单
-            setTimeout(() => {
-                document.getElementById('formModal').style.display = 'block';
-                document.getElementById('successModal').style.display = 'none';
-                document.getElementById('signupForm').reset();
-                document.getElementById('jingwanghao').classList.remove('error', 'success');
-                document.getElementById('jingwangError').classList.remove('visible');
-            }, 300);
         }
 
         // 点击遮罩关闭
@@ -1342,59 +1290,6 @@
                 closeModal();
             }
         });
-
-        // 验证精网号
-        function validateJingwanghao(input) {
-            const value = input.value.replace(/\D/g, '');
-            input.value = value;
-            
-            const errorEl = document.getElementById('jingwangError');
-            
-            if (value.length === 8 && value.startsWith('5')) {
-                input.classList.remove('error');
-                input.classList.add('success');
-                errorEl.classList.remove('visible');
-                return true;
-            } else if (value.length === 8) {
-                input.classList.add('error');
-                input.classList.remove('success');
-                errorEl.classList.remove('visible');
-                errorEl.textContent = '精网号必须以5开头';
-                errorEl.classList.add('visible');
-            } else if (value.length > 0) {
-                input.classList.add('error');
-                input.classList.remove('success');
-                errorEl.classList.remove('visible');
-            }
-            return false;
-        }
-
-        // 提交表单
-        function handleSubmit(e) {
-            e.preventDefault();
-            
-            const input = document.getElementById('jingwanghao');
-            const value = input.value;
-            
-            if (!validateJingwanghao(input)) {
-                return;
-            }
-
-            // 显示成功
-            document.getElementById('displayJingwanghao').textContent = '精网号：' + value;
-            document.getElementById('formModal').style.display = 'none';
-            document.getElementById('successModal').style.display = 'block';
-
-            // 存储报名信息（演示用）
-            const signups = JSON.parse(localStorage.getItem('signups') || '[]');
-            signups.push({
-                jingwanghao: value,
-                time: new Date().toLocaleString('zh-CN')
-            });
-            localStorage.setItem('signups', JSON.stringify(signups));
-
-            console.log('报名成功：', value);
-        }
     </script>
 </body>
 </html>
