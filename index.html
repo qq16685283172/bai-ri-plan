@@ -704,6 +704,73 @@
             overflow: hidden;
         }
 
+        /* 下载区域样式 */
+        .download-section {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .download-card {
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,0,0.05));
+            border: 2px solid rgba(255,215,0,0.3);
+            border-radius: 24px;
+            padding: 60px 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1), transparent 50%);
+        }
+
+        .download-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .download-card h2 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .download-card p {
+            color: #b8c5d6;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            padding: 18px 48px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255,215,0,0.4);
+        }
+
         .cta-section::before {
             content: '';
             position: absolute;
@@ -1158,6 +1225,18 @@
             直播广场
         </div>
         <p>弘历软件官方服务频道</p>
+    </section>
+
+    <!-- 免费下载区域 -->
+    <section class="download-section">
+        <div class="download-card">
+            <div class="download-icon">📚</div>
+            <h2>免费领取学习资料</h2>
+            <p>完成百日炼兵计划，即可获得顶级游资涨停宝典</p>
+            <a href="顶级游资涨停宝典.pdf" download="顶级游资涨停宝典.pdf" class="btn-download">
+                <span>📥</span> 免费下载 PDF
+            </a>
+        </div>
     </section>
 
     <!-- CTA区域 -->
