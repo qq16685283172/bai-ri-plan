@@ -640,6 +640,61 @@
             color: #ffd700;
         }
 
+        /* 上课时间样式 */
+        .class-time {
+            background: rgba(255,215,0,0.1);
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .class-time .time-label {
+            color: #ffd700;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .class-time .time-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* 直播地点横幅 */
+        .live-banner {
+            background: linear-gradient(135deg, #26B941, #0d8a1e);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .live-banner h3 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .live-banner .location {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .live-banner .location span {
+            font-size: 32px;
+        }
+
+        .live-banner p {
+            color: rgba(255,255,255,0.8);
+            margin-top: 16px;
+            font-size: 16px;
+        }
+
         /* CTA区域 */
         .cta-section {
             background: linear-gradient(135deg, #ffd700, #ff8c00);
@@ -862,75 +917,6 @@
             display: block;
         }
 
-        .questionnaire-modal {
-            max-width: 520px;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .questionnaire-modal .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 10;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .questionnaire-modal iframe {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            .questionnaire-modal {
-                max-width: 100%;
-                margin: 10px;
-                max-height: 90vh;
-                overflow-y: auto;
-            }
-
-            .questionnaire-modal iframe {
-                height: 70vh;
-                min-height: 500px;
-            }
-        }
-
-        /* 成功提示 */
-        .success-modal {
-            text-align: center;
-        }
-
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #2ed573, #7bed9f);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 40px;
-        }
-
-        .success-modal h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .success-modal p {
-            color: #b8c5d6;
-            margin-bottom: 8px;
-        }
-
-        .success-modal .jingwang {
-            background: rgba(255,215,0,0.2);
-            padding: 12px 24px;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 16px 0;
-            font-size: 20px;
-            color: #ffd700;
-        }
-
         /* 页脚 */
         footer {
             background: #050510;
@@ -1140,6 +1126,10 @@
                         <li>基础技能培养</li>
                         <li>面向全体会员</li>
                     </ul>
+                    <div class="class-time">
+                        <div class="time-label">上课时间</div>
+                        <div class="time-value">周一至周五 20:00</div>
+                    </div>
                 </div>
                 <div class="program-card gold">
                     <h3>财经壹眼</h3>
@@ -1151,9 +1141,23 @@
                         <li>盘中干货分享</li>
                         <li>终身领航员专属</li>
                     </ul>
+                    <div class="class-time">
+                        <div class="time-label">上课时间</div>
+                        <div class="time-value">周一至周五 09:30</div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- 直播地点横幅 -->
+    <section class="live-banner">
+        <h3>📺 直播地点</h3>
+        <div class="location">
+            <span>📍</span>
+            直播广场
+        </div>
+        <p>弘历软件官方服务频道</p>
     </section>
 
     <!-- CTA区域 -->
@@ -1169,18 +1173,21 @@
         <p>久学精进 · 久学贯通 · 久学破壁 · 久学致用 · 久学薄发</p>
     </footer>
 
-    <!-- 报名模态框 -->
+    <!-- 提示模态框 -->
     <div class="modal-overlay" id="modalOverlay">
-        <div class="modal questionnaire-modal" id="formModal">
+        <div class="modal" id="formModal">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <iframe 
-                id='idy_frame' 
-                src="https://wj.qq.com/s2/27063964/77a8/" 
-                frameborder="0" 
-                style='width:100%;height:650px;border:none;' 
-                allowfullscreen 
-                sandbox="allow-same-origin allow-scripts allow-modals allow-downloads allow-forms allow-popups"
-            ></iframe>
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 64px; margin-bottom: 20px;">📺</div>
+                <h3 style="font-size: 24px; margin-bottom: 16px; color: #ffd700;">直播地点</h3>
+                <p style="font-size: 28px; font-weight: bold; margin-bottom: 24px;">直播广场</p>
+                <p style="color: #b8c5d6; margin-bottom: 16px;">弘历软件官方服务频道</p>
+                <p style="color: #8892a0; font-size: 14px; line-height: 1.8;">
+                    请打开精网 App<br>
+                    进入【直播广场】-【弘历软件官方服务频道】<br>
+                    即可观看每日直播课程
+                </p>
+            </div>
         </div>
     </div>
 
